@@ -6,7 +6,8 @@ RUN mkdir -p /usr/local/go/src/app/
 
 WORKDIR /usr/local/go/src/app
 
-COPY ./.env.local .env
+COPY .env.local .env
+
 COPY . .
 
 RUN apk update \

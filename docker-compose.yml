@@ -5,7 +5,6 @@ services:
     tty: true
     volumes:
       - ./backend:/usr/local/go/src/app
-      - ./backend/.env.local:/usr/local/go/src/app/.env.local
     ports:
       - "8080:8080"
     depends_on:
