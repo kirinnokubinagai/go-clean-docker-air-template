@@ -11,7 +11,8 @@ COPY . .
 RUN apk update \
   && apk add --no-cache git \
   && apk add git \
-  && go install github.com/cosmtrek/air@v1.29.0
+  && go install github.com/cosmtrek/air@v1.29.0 \
+  && go install github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 
 RUN go mod tidy
 
