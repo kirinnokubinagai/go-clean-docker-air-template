@@ -1,0 +1,24 @@
+{
+  "name": "Go Dev",
+  "dockerComposeFile": ["../docker-compose.yml"],
+  "service": "app" ,
+  "workspaceFolder": "/usr/local/go/src/app",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/sh",
+        "go.toolsManagement.checkForUpdates": "off",
+        "go.gopath": "/go",
+        "go.formatTool": "gofmt",
+        "go.useLanguageServer": true,
+        "editor.formatOnSave": false,
+        "[go]": {
+          "editor.formatOnSave": true
+        }
+      },
+      "extensions": [
+        "golang.go"
+      ]
+    }
+  }
+}
