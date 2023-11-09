@@ -4,6 +4,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 最初の設定処理
+func init() {
+
+}
+
 func main() {
 	router := gin.Default()
 

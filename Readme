@@ -15,8 +15,15 @@ brew cleanup postgresql@15
 brew linnk postgresql@15
 ```
 
+### migrationファイルの作成
+ローカルから
+```
+make migration-local FILENAME=artist
+```
+#### ※ めちゃくちゃ注意 drop と upでファイル名を間違えないミスると悲惨です。
+
 ### migrate
-※ backendから実行
+ローカルから
 ```
 /go/bin/migrate migrate
 ```

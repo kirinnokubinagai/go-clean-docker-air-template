@@ -1,19 +1,28 @@
 .PHONY: setup go app
 
+######################################
+### local環境 
+######################################
 # ローカルバックエンドのビルド
-build-backend-local:
+local-build:
 	docker compose build
 
 # ローカルバックエンドの起動
-up-backend-local:
+local-up:
 	docker compose up -d
 
 # ローカルバックエンドの環境変数ファイルをシンボリックリンクで作成
-set-up-local-env:
-	docker compose run backend ln -s .env.local .env
+local-set-up-backend-env:
+	docker compose exec backend ln -s .env.local .env
+
+# ローカル環境のDBマイグレーションファイルの作成
+local-create-migration:
+	docker compose exec backend /go/bin/migrate create -ext sql -dir /usr/local/go/src/app/database/migrations -seq ${FILENAME}
+	
 
 # ローカル環境のDBマイグレート
-migrate-local:
-	# マイグレーションファイルのパスは -source://path
-	# 接続先の設定 -database DBの種類://host名/database名
-	docker compose run backend /go/bin/migrate -source file://usr/local/go/src/app/database/migrations -database postgres://db/db up
+#
+# ※ マイグレーションファイルのパス --path path
+# ※ 接続先の設定 --database DBのドライバー user:password@host名:ポート/database名
+local-migrate:
+	docker compose exec backend /go/bin/migrate --path /usr/local/go/src/app/database/migrations --database 'postgresql://postgres:password@db:5432/db?sslmode=disable' -verbose up
