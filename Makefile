@@ -1,10 +1,13 @@
 .PHONY: setup go app
 
-build backend local:
+# ローカルバックエンドのビルド
+build-backend-local:
 	docker compose build
 
-up backend local:
+# ローカルバックエンドの起動
+up-backend-local:
 	docker compose up -d
 
-set up local env:
+# ローカルバックエンドの環境変数ファイルをシンボリックリンクで作成
+set-up-local-env:
 	docker compose run backend ln -s .env.local .env
