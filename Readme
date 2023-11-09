@@ -1,0 +1,22 @@
+### アーキテクチャー構成図
+
+
+### DB接続(dockerから接続すると思うので不要)
+ローカルから
+```
+psql -h 127.0.0.1 -p 5432 db postgres
+```
+を実行する
+
+※ psqlコマンドがない場合は以下を実行
+```
+brew install postgresql@15
+brew cleanup postgresql@15
+brew linnk postgresql@15
+```
+
+### migrate
+※ backendから実行
+```
+/go/bin/migrate migrate
+```
