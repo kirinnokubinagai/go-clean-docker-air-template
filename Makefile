@@ -1,7 +1,7 @@
 .PHONY: setup go app
 
 ######################################
-### local環境 
+### local環境
 ######################################
 # ローカルバックエンドのビルド
 local-build:
@@ -18,7 +18,7 @@ local-set-up-backend-env:
 # ローカル環境のDBマイグレーションファイルの作成
 local-create-migration:
 	docker compose exec backend /go/bin/migrate create -ext sql -dir /usr/local/go/src/app/database/migrations -seq ${FILENAME}
-	
+
 # ローカル環境のDBマイグレート
 #
 # ※ マイグレーションファイルのパス --path path

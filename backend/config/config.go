@@ -4,7 +4,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func loadEnv() {
+func LoadEnv() {
 	envFile := ".env"
 	godotenv.Load(envFile)
 }

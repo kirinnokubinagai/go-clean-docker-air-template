@@ -18,12 +18,11 @@ brew linnk postgresql@15
 ### migrationファイルの作成
 ローカルから
 ```
-make migration-local FILENAME=artist
+make local-create-migration FILENAME=artist
 ```
-#### ※ めちゃくちゃ注意 drop と upでファイル名を間違えないミスると悲惨です。
 
-### migrate
+### migrate up
 ローカルから
 ```
-/go/bin/migrate migrate
+make local-migrate-up
 ```

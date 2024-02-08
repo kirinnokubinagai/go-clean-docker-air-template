@@ -1,4 +1,4 @@
-FROM golang:1.21.4-alpine3.18
+FROM golang:1.22.0-alpine
 
 ENV TZ /usr/share/zoneinfo/Asia/Tokyo
 
@@ -16,8 +16,6 @@ RUN apk update \
 
 RUN go mod tidy
 
-RUN go build -o main .
-
 EXPOSE 8080
 
-CMD ["air", "-c", ".air.toml"]
+CMD ["air", "-c", ".air.toml" ]
