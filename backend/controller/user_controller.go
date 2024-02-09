@@ -4,6 +4,7 @@ import (
 	"go_app/service"
 
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 type IUserController interface {
@@ -19,6 +20,10 @@ func NewUserController(userService service.IUserService) IUserController {
 }
 
 func (userController UserController) GetUserList(context *gin.Context) {
-	userList := userController.userService.GetUserList()
+	userList, err := userController.userService.GetUserList()
+	if err != nil {
+		logrus.Fatalln(err)
+		context.JSON(500, err)
+	}
 	context.JSON(200, userList)
 }

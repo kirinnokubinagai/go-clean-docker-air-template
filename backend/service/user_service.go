@@ -6,7 +6,7 @@ import (
 )
 
 type IUserService interface {
-	GetUserList() []model.User
+	GetUserList() ([]model.User, error)
 }
 
 type UserService struct {
@@ -17,6 +17,6 @@ func NewUserService(userRepository repository.IUserRepository) IUserService {
 	return &UserService{userRepository}
 }
 
-func (userService UserService) GetUserList() []model.User {
+func (userService UserService) GetUserList() ([]model.User, error) {
 	return userService.userRepository.GetUserList()
 }
