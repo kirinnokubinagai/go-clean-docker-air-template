@@ -10,11 +10,22 @@ import (
 	"go.uber.org/dig"
 )
 
-func BuildContainer() (*dig.Container, error) {
+type IContainer interface {
+	BuildContainer() (*dig.Container, error)
+}
+
+type Container struct{}
+
+func NewContainer() IContainer {
+	return &Container{}
+}
+
+// BuildContainer メソッドを実装
+func (c *Container) BuildContainer() (*dig.Container, error) {
 	container := dig.New()
 
 	providers := []interface{}{
-		database.BootDatabase,
+		database.NewDbConnection,
 		controller.NewUserController,
 		service.NewUserService,
 		repository.NewUserRepository,

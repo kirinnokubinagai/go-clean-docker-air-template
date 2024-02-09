@@ -6,10 +6,12 @@ import (
 )
 
 type IUserService interface {
+	// ユーザー一覧取得処理
 	GetUserList() ([]model.User, error)
 }
 
 type UserService struct {
+	// UserRepositoryのインターフェース
 	userRepository repository.IUserRepository
 }
 
@@ -17,6 +19,10 @@ func NewUserService(userRepository repository.IUserRepository) IUserService {
 	return &UserService{userRepository}
 }
 
+/*
+ユーザー一覧取得処理
+@return []model.User, error ユーザー情報一覧、エラー
+*/
 func (userService UserService) GetUserList() ([]model.User, error) {
 	return userService.userRepository.GetUserList()
 }

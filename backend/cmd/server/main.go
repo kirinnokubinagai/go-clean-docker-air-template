@@ -2,7 +2,6 @@ package main
 
 import (
 	"go_app/config"
-	"go_app/database"
 	"go_app/registry"
 	"go_app/server"
 
@@ -13,10 +12,9 @@ import (
 サーバーの起動、DB接続、DIコンテナの作成
 */
 func main() {
-	config.LoadEnv()
-	database.BootDatabase()
+	config.NewConfig().LoadEnv()
 
-	container, err := registry.BuildContainer()
+	container, err := registry.NewContainer().BuildContainer()
 	if err != nil {
 		logrus.Fatalln(err)
 	}

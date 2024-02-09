@@ -2,24 +2,27 @@ package repository
 
 import (
 	"go_app/constants"
+	"go_app/database"
 	"go_app/model"
 	"go_app/util"
-
-	"gorm.io/gorm"
 )
 
 type IUserRepository interface {
+	// ユーザー一覧取得処理
 	GetUserList() ([]model.User, error)
 }
 
 type UserRepository struct {
-	database *gorm.DB
+	// DBクライアント
+	database database.IDbConnection
 }
 
-func NewUserRepository(database *gorm.DB) IUserRepository {
+// コンストラクター
+func NewUserRepository(database database.IDbConnection) IUserRepository {
 	return &UserRepository{database}
 }
 
+// ユーザー一覧取得処理
 func (userRepository *UserRepository) GetUserList() ([]model.User, error) {
 	var userList []model.User
 	sql, err := util.ReadSQLFile(constants.GetUserListSqlPath)
@@ -27,6 +30,6 @@ func (userRepository *UserRepository) GetUserList() ([]model.User, error) {
 		return nil, err
 	}
 
-	userRepository.database.Raw(sql).Scan(&userList)
+	userRepository.database.GetWriter().Raw(sql).Scan(&userList)
 	return userList, nil
 }
