@@ -1,12 +1,13 @@
 FROM golang:1.22.0-alpine
 
-ENV TZ /usr/share/zoneinfo/Asia/Tokyo
-
 RUN mkdir -p /usr/local/go/src/app/
 
 WORKDIR /usr/local/go/src/app
 
 COPY . .
+
+RUN apk add tzdata
+ENV TZ=Asia/Tokyo
 
 RUN apk update \
   && apk add --no-cache git \

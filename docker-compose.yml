@@ -5,7 +5,6 @@ services:
     tty: true
     volumes:
       - ./backend:/usr/local/go/src/app
-      - ./Readme:/usr/local/go/src/app/Readme
     ports:
       - "8080:8080"
     depends_on:
