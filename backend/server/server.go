@@ -1,28 +1,27 @@
 package server
 
 import (
-	"time"
-
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 )
 
-func init() {
-	logrus.SetFormatter(&logrus.TextFormatter{
-		FullTimestamp:   true,
-		TimestampFormat: time.RFC3339,
-	})
+type IServer interface {
+	GetEngine() *gin.Engine
 }
 
 type Server struct {
-	*gin.Engine
+	engine *gin.Engine
 }
 
-func NewServer(router IRouter) *Server {
+func NewServer(router IRouter, logger ILogger) IServer {
 	engine := gin.New()
 
-	engine.Use()
 	router.setRoutes(engine)
 
+	logger.SetLogger(engine)
+
 	return &Server{engine}
+}
+
+func (server *Server) GetEngine() *gin.Engine {
+	return server.engine
 }

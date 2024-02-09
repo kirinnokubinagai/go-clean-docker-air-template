@@ -3,6 +3,7 @@ package registry
 import (
 	"go_app/controller"
 	"go_app/database"
+	"go_app/middleware"
 	"go_app/repository"
 	"go_app/server"
 	"go_app/service"
@@ -11,6 +12,7 @@ import (
 )
 
 type IContainer interface {
+	// DIコンテナの作成
 	BuildContainer() (*dig.Container, error)
 }
 
@@ -20,7 +22,9 @@ func NewContainer() IContainer {
 	return &Container{}
 }
 
-// BuildContainer メソッドを実装
+// DIコンテナの作成
+// @return *dig.Container DIコンテナ
+// @return error エラー
 func (c *Container) BuildContainer() (*dig.Container, error) {
 	container := dig.New()
 
@@ -29,6 +33,8 @@ func (c *Container) BuildContainer() (*dig.Container, error) {
 		controller.NewUserController,
 		service.NewUserService,
 		repository.NewUserRepository,
+		middleware.NewLoggingMiddleware,
+		server.NewLogger,
 		server.NewRouter,
 		server.NewServer,
 	}

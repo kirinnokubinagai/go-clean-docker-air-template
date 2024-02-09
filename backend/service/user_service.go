@@ -15,13 +15,17 @@ type UserService struct {
 	userRepository repository.IUserRepository
 }
 
+// コンストラクター
+// @param userRepository repository.IUserRepository ユーザーレポジトリー
+// @return IUserService インターフェース
 func NewUserService(userRepository repository.IUserRepository) IUserService {
 	return &UserService{userRepository}
 }
 
 /*
 ユーザー一覧取得処理
-@return []model.User, error ユーザー情報一覧、エラー
+@return []model.User ユーザー情報一覧
+@return error エラー
 */
 func (userService UserService) GetUserList() ([]model.User, error) {
 	return userService.userRepository.GetUserList()

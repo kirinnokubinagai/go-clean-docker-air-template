@@ -15,12 +15,13 @@ func main() {
 	config.NewConfig().LoadEnv()
 
 	container, err := registry.NewContainer().BuildContainer()
+
 	if err != nil {
 		logrus.Fatalln(err)
 	}
 
-	err = container.Invoke(func(server *server.Server) {
-		err := server.Run(":8080")
+	err = container.Invoke(func(server server.IServer) {
+		err := server.GetEngine().Run(":8080")
 		if err != nil {
 			logrus.Fatalln(err)
 		}

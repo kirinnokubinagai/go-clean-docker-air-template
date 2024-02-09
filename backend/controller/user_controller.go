@@ -13,9 +13,13 @@ type IUserController interface {
 }
 
 type UserController struct {
+	// userService service.IUserService ユーザーサービス
 	userService service.IUserService
 }
 
+// コンストラクター
+// @param userService service.IUserService ユーザーサービス
+// @return IUserController インターフェース
 func NewUserController(userService service.IUserService) IUserController {
 	return &UserController{userService}
 }

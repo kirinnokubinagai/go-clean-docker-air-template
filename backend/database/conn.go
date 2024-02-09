@@ -33,6 +33,7 @@ type DbConnection struct {
 }
 
 // コンストラクター
+// @return IDbConnection インターフェース
 func NewDbConnection() IDbConnection {
 	dbConn := &DbConnection{}
 	dbConn.ConnectReaderDb()
@@ -46,8 +47,11 @@ func (dbConn *DbConnection) ConnectReaderDb() {
 	user := os.Getenv("POSTGRES_READER_USER")
 	password := os.Getenv("POSTGRES_READER_PASSWORD")
 	dbName := os.Getenv("POSTGRES_READER_DB")
+	sslMode := os.Getenv("POSTGRES_READER_SSL_MODE")
+	TimeZone := os.Getenv("POSTGRES_READER_TIME_ZONE")
 
-	dsn := fmt.Sprintf("host=%v user=%v password=%v dbname=%v", host, user, password, dbName)
+	dsn := fmt.Sprintf("host=%v user=%v password=%v dbname=%v sslmode=%v TimeZone=%v", host, user, password, dbName, sslMode, TimeZone)
+
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		logrus.Fatalln(err)
@@ -69,8 +73,10 @@ func (dbConn *DbConnection) ConnectWriterDb() {
 	user := os.Getenv("POSTGRES_WRITER_USER")
 	password := os.Getenv("POSTGRES_WRITER_PASSWORD")
 	dbName := os.Getenv("POSTGRES_WRITER_DB")
+	sslMode := os.Getenv("POSTGRES_WRITER_SSL_MODE")
+	TimeZone := os.Getenv("POSTGRES_WRITER_TIME_ZONE")
 
-	dsn := fmt.Sprintf("host=%v user=%v password=%v dbname=%v", host, user, password, dbName)
+	dsn := fmt.Sprintf("host=%v user=%v password=%v dbname=%v sslmode=%v TimeZone=%v", host, user, password, dbName, sslMode, TimeZone)
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		logrus.Fatalln(err)
@@ -87,11 +93,13 @@ func (dbConn *DbConnection) ConnectWriterDb() {
 }
 
 // reader用のコネクションを返す
+// @return *gorm.DB reader用のコネクション
 func (dbConn *DbConnection) GetReader() *gorm.DB {
 	return dbConn.Reader
 }
 
 // writer用のコネクションを返す
+// @return *gorm.DB writer用のコネクション
 func (dbConn *DbConnection) GetWriter() *gorm.DB {
 	return dbConn.Writer
 }

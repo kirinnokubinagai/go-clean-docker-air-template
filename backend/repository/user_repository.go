@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"go_app/constants"
+	constants "go_app/constant"
 	"go_app/database"
 	"go_app/model"
 	"go_app/util"
@@ -18,11 +18,15 @@ type UserRepository struct {
 }
 
 // コンストラクター
+// @param database database.IDbConnection DBクライアント
+// @return IUserRepository インターフェース
 func NewUserRepository(database database.IDbConnection) IUserRepository {
 	return &UserRepository{database}
 }
 
 // ユーザー一覧取得処理
+// @return []model.User ユーザー情報一覧
+// @return error エラー
 func (userRepository *UserRepository) GetUserList() ([]model.User, error) {
 	var userList []model.User
 	sql, err := util.ReadSQLFile(constants.GetUserListSqlPath)
